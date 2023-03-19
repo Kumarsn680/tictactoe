@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import './App.css'
+import {  useState } from 'react'
+
 
 function App() {
   const [board,setBoard] = useState(["","","","","","","","",""])
