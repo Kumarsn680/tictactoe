@@ -1,37 +1,43 @@
-import {  useState } from 'react'
-
+import { useState } from "react";
 
 function App() {
-  const [board,setBoard] = useState(["","","","","","","","",""])
-  const [winner,setWinner] = useState(null)
-  const [currentPlayer,setCurrentPlayer] = useState("X")
-  const [score,setScore] = useState({X:0,Y:0})
-  const [isGameDraw,setIsGameDraw] = useState(false)
+  const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
+  const [winner, setWinner] = useState(null);
+  const [currentPlayer, setCurrentPlayer] = useState("X");
+  const [score, setScore] = useState({ X: 0, Y: 0 });
+  const [isGameDraw, setIsGameDraw] = useState(false);
 
-  const gameOver = (board) =>{
-    for(let i=0;i<board.length;i+=1){
-      if(board[i]=="")return false
+  const gameOver = (board) => {
+    for (let i = 0; i < board.length; i += 1) {
+      if (board[i] == "") return false;
     }
-    return true
-  }
+    return true;
+  };
 
-   const checkWin = (board) =>{
-        if(board[0] == board[1] && board[1] == board[2] && board[0]!="") return currentPlayer
-        if(board[3] == board[4] && board[4] == board[5] && board[3]!="") return currentPlayer
-        if(board[6] == board[7] && board[7] == board[8] && board[6]!="") return currentPlayer
-        if(board[0] == board[3] && board[3] == board[6] && board[0]!="") return currentPlayer
-        if(board[1] == board[4] && board[4] == board[7] && board[1]!="") return currentPlayer
-        if(board[2] == board[5] && board[5] == board[8] && board[2]!="") return currentPlayer
-        if(board[0] == board[4] && board[4] == board[8] && board[0]!="") return currentPlayer
-        if(board[2] == board[4] && board[4] == board[6] && board[2]!="") return currentPlayer
-        return null
-    }
+  const checkWin = (board) => {
+    if (board[0] == board[1] && board[1] == board[2] && board[0] != "")
+      return currentPlayer;
+    if (board[3] == board[4] && board[4] == board[5] && board[3] != "")
+      return currentPlayer;
+    if (board[6] == board[7] && board[7] == board[8] && board[6] != "")
+      return currentPlayer;
+    if (board[0] == board[3] && board[3] == board[6] && board[0] != "")
+      return currentPlayer;
+    if (board[1] == board[4] && board[4] == board[7] && board[1] != "")
+      return currentPlayer;
+    if (board[2] == board[5] && board[5] == board[8] && board[2] != "")
+      return currentPlayer;
+    if (board[0] == board[4] && board[4] == board[8] && board[0] != "")
+      return currentPlayer;
+    if (board[2] == board[4] && board[4] == board[6] && board[2] != "")
+      return currentPlayer;
+    return null;
+  };
 
-
-  const handleClick = (board,index) => {
-    if(winner ||  isGameDraw) return
+  const handleClick = (board, index) => {
+    if (winner || isGameDraw) return;
     const updatedBoard = board.map((element, idx) => {
-      if (idx == index && board[index]=="") {
+      if (idx == index && board[index] == "") {
         return currentPlayer;
       } else {
         return element;
@@ -42,9 +48,6 @@ function App() {
     const isWinner = checkWin(updatedBoard);
     const isGameOver = gameOver(updatedBoard);
 
-    
-    
-
     if (isWinner) {
       if (currentPlayer == "X") {
         setScore({ ...score, X: score.X + 1 });
@@ -54,33 +57,30 @@ function App() {
       console.log(currentPlayer, score);
       setWinner(isWinner);
       return;
-    } 
+    }
 
     if (isGameOver) {
       setIsGameDraw(true);
       return;
     }
-    
+
     if (currentPlayer == "X") {
       setCurrentPlayer("O");
     } else {
       setCurrentPlayer("X");
     }
-    
-    
-  }
+  };
 
-  const resetScore = () =>{
-    setScore({X:0,Y:0})
-  }
-
+  const resetScore = () => {
+    setScore({ X: 0, Y: 0 });
+  };
 
   const clearBoard = () => {
-    setBoard(["","","","","","","","",""])
-    setWinner(null)
-    setCurrentPlayer("X")
-  }
-  
+    setBoard(["", "", "", "", "", "", "", "", ""]);
+    setWinner(null);
+    setCurrentPlayer("X");
+  };
+
   return (
     <div className="flex flex-col w-screen h-screen justify-center items-center bg-slate-300">
       <div className="bg-white m-3 rounded-md flex justify-between w-40">
@@ -130,4 +130,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
